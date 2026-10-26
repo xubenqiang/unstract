@@ -85,7 +85,7 @@ from unstract.sdk1.adapters.x2text.constants import ImageOutputConstants
 from unstract.sdk1.adapters.x2text.llm_whisperer_v2.src.helper import (
     LLMWhispererHelper,
 )
-from unstract.sdk1.adapters.x2text.page_image_loader import configured_page_cap
+from unstract.sdk1.adapters.x2text.page_image_loader import fixed_page_cap
 from unstract.sdk1.constants import LogLevel
 from unstract.sdk1.exceptions import IndexingError, SdkError
 from unstract.sdk1.execution.context import ExecutionContext
@@ -1565,7 +1565,7 @@ class PromptStudioHelper:
         if page_count is None:
             return
         if not model_aware_limits_enabled():
-            page_cap = configured_page_cap()
+            page_cap = fixed_page_cap()
             if page_count <= page_cap:
                 return
             raise ExtractionAPIError(
@@ -1634,7 +1634,7 @@ class PromptStudioHelper:
                     "number of pages."
                 )
             )
-        page_cap = configured_page_cap()
+        page_cap = fixed_page_cap()
         if page_count <= page_cap:
             return
         raise ImageModePageLimitExceeded(
